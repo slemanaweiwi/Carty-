@@ -5,7 +5,7 @@ import User from "@/models/User";
 import { connect } from "mongoose";
 
 // Create a client to send and receive events
-export const inngest = new Inngest({ id: "SULEIMAN'S-ECOMMERCE" });
+export const inngest = new Inngest({ id: "cart-app" });
 
 // inngest Function that save user data to data base 
 export const syncUserCreation  = inngest.createFunction(
