@@ -1,4 +1,4 @@
-import { User } from "@clerk/nextjs/dist/types/server";
+// import { User } from "@clerk/nextjs/dist/types/server";
 import mongoose from "mongoose";
 const userScema = new mongoose.Schema({
     _id  : {type : String , required : true } ,
