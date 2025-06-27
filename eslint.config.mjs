@@ -9,6 +9,14 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [...compat.extends("next/core-web-vitals")];
+const extendedConfig = compat.extends("next/core-web-vitals");
 
-export default eslintConfig;
+// Remove any invalid `parser: function` entries
+const sanitizedConfig = extendedConfig.map((config) => {
+  if (typeof config.parser === "function") {
+    delete config.parser;
+  }
+  return config;
+});
+
+export default sanitizedConfig;
