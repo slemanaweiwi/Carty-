@@ -1,7 +1,7 @@
 import { Inngest } from "inngest";
 import connectDB from "./DB"; // ✅ Adjust the path if your DB file is elsewhere
 
-import User from "../models/User";
+import User from "@/models/User";
 import { connect } from "mongoose";
 
 // Create a client to send and receive events
@@ -14,7 +14,7 @@ export const syncUserCreation  = inngest.createFunction(
     } , {
         event : 'clerk/user.created'
     }, async ({event}) =>{
-        const {id , first_name , email_addresses , image_url} = event.data
+        const {id , first_name ,last_name, email_addresses , image_url} = event.data
         const userData = {
             _id : id , 
             email:email_addresses[0].email_address , 
