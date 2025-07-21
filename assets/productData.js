@@ -161,4 +161,28 @@ export const products = [
     price: "$1,999.99",
     imgSrc: assets.asus_laptop_image,
   },
+  {
+    id: 21,
+    name: "Building Blocks Toy Set",
+    description: "Creative and colorful blocks for kids.",
+    rating: 4.7,
+    price: "$24.99",
+    imgSrc: assets.box_icon,
+  },
+  {
+    id: 22,
+    name: "Adjustable Dumbbells",
+    description: "Perfect for home gym workouts, adjustable weight.",
+    rating: 4.8,
+    price: "$89.99",
+    imgSrc: assets.order_icon,
+  },
+  {
+    id: 23,
+    name: "Modern Study Desk",
+    description: "Spacious and sturdy desk for work or study.",
+    rating: 4.6,
+    price: "$149.99",
+    imgSrc: assets.product_list_icon,
+  },
 ];

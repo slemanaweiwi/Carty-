@@ -6,24 +6,24 @@ const HeaderSlider = () => {
   const sliderData = [
     {
       id: 1,
-      title: "Experience Pure Sound - Your Perfect Headphones Awaits!",
-      offer: "Limited Time Offer 30% Off",
+      title: "Unleash Pure Sound – Discover the Ultimate Headphones!",
+      offer: "Special: Save 30% on Audio Gear Today",
       buttonText1: "Buy now",
       buttonText2: "Find more",
       imgSrc: assets.header_headphone_image,
     },
     {
       id: 2,
-      title: "Next-Level Gaming Starts Here - Discover PlayStation 5 Today!",
-      offer: "Hurry up only few lefts!",
+      title: "Game On – Elevate Your PlayStation Experience!",
+      offer: "Limited Stock – Grab Your Console Now!",
       buttonText1: "Shop Now",
       buttonText2: "Explore Deals",
       imgSrc: assets.header_playstation_image,
     },
     {
       id: 3,
-      title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
-      offer: "Exclusive Deal 40% Off",
+      title: "Work & Create – Power Up with MacBook Pro!",
+      offer: "Exclusive: 40% Off for a Limited Time",
       buttonText1: "Order Now",
       buttonText2: "Learn More",
       imgSrc: assets.header_macbook_image,
@@ -62,10 +62,10 @@ const HeaderSlider = () => {
                 {slide.title}
               </h1>
               <div className="flex items-center mt-4 md:mt-6 ">
-                <button className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium">
+                <button className="md:px-10 px-7 md:py-2.5 py-2 bg-purple-600 hover:bg-purple-700 rounded-full text-white font-medium transition">
                   {slide.buttonText1}
                 </button>
-                <button className="group flex items-center gap-2 px-6 py-2.5 font-medium">
+                <button className="group flex items-center gap-2 px-6 py-2.5 font-medium text-purple-700 hover:text-purple-900">
                   {slide.buttonText2}
                   <Image className="group-hover:translate-x-1 transition" src={assets.arrow_icon} alt="arrow_icon" />
                 </button>
@@ -88,7 +88,7 @@ const HeaderSlider = () => {
             key={index}
             onClick={() => handleSlideChange(index)}
             className={`h-2 w-2 rounded-full cursor-pointer ${
-              currentSlide === index ? "bg-orange-600" : "bg-gray-500/30"
+              currentSlide === index ? "bg-purple-600" : "bg-purple-200"
             }`}
           ></div>
         ))}

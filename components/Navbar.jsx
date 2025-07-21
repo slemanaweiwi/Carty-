@@ -23,31 +23,27 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 text-gray-700">
-      <Image
-        className="cursor-pointer w-28 md:w-32"
-        onClick={() => router.push("/")}
-        src={assets.logo}
-        alt="logo"
-      />
+    <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-purple-500 text-purple-700 bg-purple-50">
+      <div className="text-2xl font-bold tracking-wide text-purple-700 cursor-pointer select-none">
+        CARTY
+      </div>
       <div className="flex items-center gap-4 lg:gap-8 max-md:hidden">
-        <Link href="/" className="hover:text-gray-900 transition">
+        <Link href="/" className="hover:text-purple-900 transition">
           Home
         </Link>
-        <Link href="/all-products" className="hover:text-gray-900 transition">
+        <Link href="/all-products" className="hover:text-purple-900 transition">
           Shop
         </Link>
-        <Link href="/" className="hover:text-gray-900 transition">
+        <Link href="/" className="hover:text-purple-900 transition">
           About Us
         </Link>
-        <Link href="/" className="hover:text-gray-900 transition">
+        <Link href="/" className="hover:text-purple-900 transition">
           Contact
         </Link>
-
         {isSeller && (
           <button
             onClick={() => router.push("/seller")}
-            className="text-xs border px-4 py-1.5 rounded-full"
+            className="text-xs border border-purple-500 text-purple-700 px-4 py-1.5 rounded-full hover:bg-purple-100"
           >
             Seller Dashboard
           </button>
@@ -69,11 +65,10 @@ const Navbar = () => {
               <UserButton.Action label = "My Items " labelIcon = {<BagIcon />} onClick={()=>router.push('/cart')} />
             </UserButton.MenuItems>
           </UserButton>
-          
         ) : (
           <button
             onClick={handleSignInClick}
-            className="flex items-center gap-2 hover:text-gray-900 transition"
+            className="flex items-center gap-2 hover:text-purple-900 transition"
           >
             <Image src={assets.user_icon} alt="user icon" />
             Account
