@@ -14,10 +14,13 @@ const Product = () => {
 
     const { id } = useParams();
 
-    const { products, router, addToCart } = useAppContext()
+    const { products, router, addToCart, updateCartQuantity } = useAppContext()
 
     const [mainImage, setMainImage] = useState(null);
     const [productData, setProductData] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const [maxMsg, setMaxMsg] = useState(false);
+    const [chatOpen, setChatOpen] = useState(false);
 
     const fetchProductData = async () => {
         const product = products.find(product => product._id === id);
@@ -28,8 +31,42 @@ const Product = () => {
         fetchProductData();
     }, [id, products.length])
 
+    useEffect(() => {
+        if (quantity === 3) {
+            setMaxMsg(true);
+            const timer = setTimeout(() => setMaxMsg(false), 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [quantity]);
+
     return productData ? (<>
         <Navbar />
+        {/* Floating Chatbot Button */}
+        <button
+            className="fixed right-6 bottom-6 z-50 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg p-4 text-lg font-bold transition"
+            onClick={() => setChatOpen(true)}
+            aria-label="Open chatbot"
+            style={{ boxShadow: '0 4px 24px rgba(80,0,120,0.15)' }}
+        >
+            💬
+        </button>
+        {/* Chatbot Drawer */}
+        {chatOpen && (
+            <div className="fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-2xl z-50 flex flex-col border-l border-gray-200 animate-slideIn">
+                <div className="flex items-center justify-between p-4 border-b">
+                    <span className="font-bold text-lg text-purple-700">Carty Chatbot</span>
+                    <button onClick={() => setChatOpen(false)} className="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                <div className="flex-1 overflow-y-auto p-4">
+                    <div className="mb-4 text-gray-700">Popular products you might like:</div>
+                    <div className="grid grid-cols-1 gap-4">
+                        {products.slice(0, 4).map((product, idx) => (
+                            <ProductCard key={idx} product={product} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        )}
         <div className="px-6 md:px-16 lg:px-32 pt-14 space-y-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <div className="px-5 lg:px-16 xl:px-20">
@@ -63,7 +100,7 @@ const Product = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col relative">
                     <h1 className="text-3xl font-medium text-gray-800/90 mb-4">
                         {productData.name}
                     </h1>
@@ -91,6 +128,32 @@ const Product = () => {
                         </span>
                     </p>
                     <hr className="bg-gray-600 my-6" />
+                    {/* Quantity Counter */}
+                    <div className="flex items-center gap-4 mb-6">
+                        <span className="font-medium text-gray-700">Quantity:</span>
+                        <button
+                            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+                            onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                            disabled={quantity === 1}
+                        >
+                            -
+                        </button>
+                        <span className="w-8 text-center">{quantity}</span>
+                        <button
+                            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+                            onClick={() => setQuantity(q => Math.min(3, q + 1))}
+                            disabled={quantity === 3}
+                        >
+                            +
+                        </button>
+                    </div>
+                    {maxMsg && (
+                        <div className="absolute left-0 top-20 w-full flex justify-center z-10">
+                            <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-3 rounded shadow-lg text-base font-semibold animate-pulse">
+                                Max amount is 3
+                            </div>
+                        </div>
+                    )}
                     <div className="overflow-x-auto">
                         <table className="table-auto border-collapse w-full max-w-72">
                             <tbody>
@@ -113,10 +176,16 @@ const Product = () => {
                     </div>
 
                     <div className="flex items-center mt-10 gap-4">
-                        <button onClick={() => addToCart(productData._id)} className="w-full py-3.5 bg-gray-100 text-gray-800/80 hover:bg-gray-200 transition">
+                        <button
+                            onClick={() => updateCartQuantity(productData._id, quantity)}
+                            className="w-full py-3.5 bg-gray-100 text-gray-800/80 hover:bg-gray-200 transition"
+                        >
                             Add to Cart
                         </button>
-                        <button onClick={() => { addToCart(productData._id); router.push('/cart') }} className="w-full py-3.5 bg-orange-500 text-white hover:bg-orange-600 transition">
+                        <button
+                            onClick={() => { updateCartQuantity(productData._id, quantity); router.push('/cart') }}
+                            className="w-full py-3.5 bg-orange-500 text-white hover:bg-orange-600 transition"
+                        >
                             Buy now
                         </button>
                     </div>

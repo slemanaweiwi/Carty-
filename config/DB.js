@@ -17,7 +17,7 @@ async function conectDB() {
     };
 
     cached.promise = mongoose
-      .connect(`${process.env.MONGODB_URL}/quickcart`, opts)
+      .connect(`${process.env.MONGODB_URL}/carty`, opts)
       .then((mongoose) => mongoose);
   }
 
